@@ -7,12 +7,15 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/hulkAyeeee/Naukri.git'
-            }
-        }
+        stage('Build') {
+    steps {
+        bat '''
+        if not exist classes mkdir classes
+        javac -cp "lib/*" -d classes *.java
+        '''
+    }
+}
+
 
         stage('Build') {
     steps {
@@ -23,16 +26,17 @@ pipeline {
     }
 }
 
-      stage('Run Profile1') {
+     stage('Run Profile1') {
     steps {
-        bat 'java -cp "lib/*;classes" com.Naukri.Profile1'
+        bat 'java -cp "lib/*;classes" Profile1'
     }
 }
 
 stage('Run Profile2') {
     steps {
-        bat 'java -cp "lib/*;classes" com.Naukri.Profile2'
+        bat 'java -cp "lib/*;classes" Profile2'
     }
 }
+
     }
 }
