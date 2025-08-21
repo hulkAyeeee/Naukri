@@ -14,11 +14,16 @@ pipeline {
         }
 
         stage('Compile') {
-            steps {
-                echo "Compiling Java source files..."
-                bat 'javac -d target src\\main\\java\\**\\*.java src\\test\\java\\**\\*.java'
-            }
-        }
+    steps {
+        echo "Compiling Java source files..."
+        bat '''
+            if not exist target mkdir target
+            dir /s /b src\\*.java > sources.txt
+            javac -d target @sources.txt
+        '''
+    }
+}
+
 
         stage('Run Tests') {
             steps {
