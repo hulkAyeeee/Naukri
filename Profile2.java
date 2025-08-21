@@ -30,7 +30,7 @@ options.addArguments("--disable-gpu");
 		
 		driver.get("https://www.naukri.com/");
 		
-		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		 try {
             WebElement gotItButton = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Got it']"))
