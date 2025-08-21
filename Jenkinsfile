@@ -31,4 +31,8 @@ pipeline {
         stage('Report') {
             steps {
                 echo "Archiving results..."
-                junit '**/test-output/*.xml'  // if using TestNG***
+                junit '**/test-output/*.xml'  // if using TestNG
+            }
+        }
+    }
+}
