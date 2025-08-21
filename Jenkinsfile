@@ -1,9 +1,12 @@
 pipeline {
     agent any
 
-    environment {
-        JAVA_HOME = "C:\\Program Files\\Java\\jdk-17.0.2"
-        PATH = "${JAVA_HOME}\\bin;${env.PATH}"
+    tools {
+        jdk 'jdk-21'   // Uses the JDK you configured in Jenkins
+    }
+
+    triggers {
+        cron('0 1,3,6,9 * * *') // 7AM, 9AM, 12PM, 3PM IST
     }
 
     stages {
@@ -16,21 +19,21 @@ pipeline {
         stage('Build') {
             steps {
                 bat '''
-                    if not exist classes mkdir classes
-                    "%JAVA_HOME%\\bin\\javac" -d classes *.java
+                if not exist classes mkdir classes
+                javac -d classes *.java
                 '''
             }
         }
 
         stage('Run Profile1') {
             steps {
-                bat '"%JAVA_HOME%\\bin\\java" -cp classes Profile1'
+                bat 'java -cp classes Profile1'
             }
         }
 
         stage('Run Profile2') {
             steps {
-                bat '"%JAVA_HOME%\\bin\\java" -cp classes Profile2'
+                bat 'java -cp classes Profile2'
             }
         }
     }
