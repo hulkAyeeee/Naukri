@@ -25,7 +25,6 @@ public class Profile1 {
 		  options.addArguments("--window-size=1920,1080");
 		
 		WebDriver driver=new ChromeDriver(options);
-		driver.manage().window().maximize();
 		driver.get("https://www.naukri.com/");
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
