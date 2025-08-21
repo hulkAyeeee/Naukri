@@ -26,7 +26,7 @@ options.addArguments("--disable-gpu");
 		
 
 		WebDriver driver=new ChromeDriver(options);
-		driver.manage().window().maximize();
+	
 		
 		driver.get("https://www.naukri.com/");
 		
@@ -42,7 +42,6 @@ options.addArguments("--disable-gpu");
 		
 		driver.findElement(By.xpath("//a[text()='Login']")).click();
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(
 		    By.xpath("//input[@placeholder='Enter your active Email ID / Username']")
 		));
@@ -57,7 +56,7 @@ options.addArguments("--disable-gpu");
 //		driver.findElement(By.xpath("//span[text()='Search jobs here']")).click();
 		
 //		driver.findElement(By.xpath("(//input[@class=\"suggestor-input \"])[1]")).sendKeys("Automation Test Engineer");
-		WebDriverWait waitChat = new WebDriverWait(driver, Duration.ofSeconds(2));
+		WebDriverWait waitChat = new WebDriverWait(driver, Duration.ofSeconds(5));
 		try {
 		    // Wait for chatbot container, but timeout quickly if not present
 		    WebElement chatbot = waitChat.until(ExpectedConditions.presenceOfElementLocated(
