@@ -18,7 +18,7 @@ pipeline {
             steps {
                 bat '''
                 if not exist classes mkdir classes
-                for %%f in (src\\com\\Naukri\\*.java) do (
+                for %%f in (*.java) do (
                     javac -d classes %%f
                 )
                 '''
@@ -27,13 +27,13 @@ pipeline {
 
         stage('Run Profile1') {
             steps {
-                bat 'java -cp classes com.Naukri.Profile1'
+                bat 'java -cp classes Profile1'
             }
         }
 
         stage('Run Profile2') {
             steps {
-                bat 'java -cp classes com.Naukri.Profile2'
+                bat 'java -cp classes Profile2'
             }
         }
     }
