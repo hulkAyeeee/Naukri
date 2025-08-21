@@ -27,11 +27,15 @@ public class Profile1 {
 		driver.get("https://www.naukri.com/");
 		
 		
-		WebElement cookies=driver.findElement(By.xpath("//span[text()='Got it']"));
-		if(cookies.isDisplayed())
-		{
-			cookies.click();
-		}
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement gotItButton = wait.until(
+                    ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Got it']"))
+            );
+            gotItButton.click();
+        } catch (Exception e) {
+            System.out.println("Element 'Got it' not found. Continuing test...");
+        }
 		
 		WebElement qrError=driver.findElement(By.xpath("//div[starts-with(@id,\"scan-qr-overlay\")]"));
 		if(qrError.isDisplayed())
