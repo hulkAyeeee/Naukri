@@ -19,7 +19,7 @@ public class Profile2 {
 	public static void main(String[] args) throws AWTException {
 		ChromeOptions options= new ChromeOptions();
 		options.addArguments("--disable-notifications");
-		System.setProperty("webdriver.chrome.driver", "D:\\Classes 2025\\ChromeDriver Jenkins Check\\chrome-win32\\chrome.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\Classes 2025\\ChromeDriver Jenkins Check\\chromedriver-win32\\chromedriver.exe");
 
 		WebDriver driver=new ChromeDriver(options);
 		driver.manage().window().maximize();
