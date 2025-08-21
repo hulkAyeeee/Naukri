@@ -28,7 +28,7 @@ public class Profile1 {
 		driver.manage().window().maximize();
 		driver.get("https://www.naukri.com/");
 		
-		
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         try {
