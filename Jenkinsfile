@@ -16,16 +16,17 @@ pipeline {
         }
 
         stage('Compile') {
-            steps {
-                script {
-                    // Compile all java files into out/ directory
-                    bat '''
-                        if not exist out mkdir out
-                        javac -d out Selenium2025\\src\\com\\Naukri\\*.java
-                    '''
-                }
-            }
+    steps {
+        script {
+            bat '''
+                if not exist out mkdir out
+                dir /B /S Selenium2025\\src\\*.java > sources.txt
+                javac -d out @sources.txt
+            '''
         }
+    }
+}
+
 
         stage('Run Profile1') {
             steps {
