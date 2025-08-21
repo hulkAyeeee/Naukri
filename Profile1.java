@@ -39,11 +39,14 @@ public class Profile1 {
             System.out.println("Element 'Got it' not found. Continuing test...");
         }
 		
-		WebElement qrError=driver.findElement(By.xpath("//div[starts-with(@id,\"scan-qr-overlay\")]"));
-		if(qrError.isDisplayed())
-		{
-			driver.navigate().refresh();
-		}
+		try {
+    List<WebElement> qrErrorList = driver.findElements(By.xpath("//div[starts-with(@id,'scan-qr-overlay')]"));
+    if (!qrErrorList.isEmpty() && qrErrorList.get(0).isDisplayed()) {
+        driver.navigate().refresh();
+    }
+} catch (Exception e) {
+    System.out.println("QR overlay not present, continuing...");
+}
 		
 		driver.findElement(By.xpath("//a[text()='Login']")).click();
 
