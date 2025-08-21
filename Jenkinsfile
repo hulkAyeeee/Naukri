@@ -2,40 +2,57 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JDK17'   // make sure you installed JDK 17 in Jenkins Global Tool Configuration
+        // Make sure these match your Jenkins configuration
+        jdk 'JDK17'   // JDK you installed in Jenkins
+        git 'Default' // Git installation configured in Jenkins
     }
 
     environment {
-        JAVA_HOME = "${tool 'JDK17'}"
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        // Add any environment variables if needed
+        CHROME_DRIVER_PATH = 'D:\Classes 2025\ChromeDriver Jenkins Check\chrome-win32\chrome.exe'  // Replace with your actual path
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout SCM') {
             steps {
-                git url: 'https://github.com/hulkAyeeee/Naukri.git', branch: 'main'
+                git branch: 'main', url: 'https://github.com/hulkAyeeee/Naukri.git'
             }
         }
 
         stage('Build') {
             steps {
                 bat '''
-                if not exist classes mkdir classes
-                javac -cp "lib/*" -d classes *.java
+                    if not exist classes mkdir classes
+                    javac -cp "lib/*" -d classes *.java
                 '''
             }
         }
 
         stage('Run Profile1') {
             steps {
-                bat 'java -cp "lib/*;classes" Profile1'
+                bat """
+                    set PATH=%CHROME_DRIVER_PATH%;%PATH%
+                    java -cp "lib/*;classes" Profile1
+                """
             }
         }
 
         stage('Run Profile2') {
             steps {
-                bat 'java -cp "lib/*;classes" Profile2'
+                bat """
+                    set PATH=%CHROME_DRIVER_PATH%;%PATH%
+                    java -cp "lib/*;classes" Profile2
+                """
             }
+        }
+    }
+
+    post {
+        failure {
+            echo "Build failed. Check errors above."
+        }
+        success {
+            echo "Build and tests completed successfully!"
         }
     }
 }
