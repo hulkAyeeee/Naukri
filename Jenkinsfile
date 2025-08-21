@@ -9,7 +9,8 @@ pipeline {
 
     environment {
         // Add any environment variables if needed
-        CHROME_DRIVER_PATH = 'D:\Classes 2025\ChromeDriver Jenkins Check\chrome-win32\chrome.exe'  // Replace with your actual path
+        CHROME_DRIVER_PATH = 'D:\\Classes 2025\\ChromeDriver Jenkins Check\\chrome-win32\\chrome.exe'
+
     }
 
     stages {
