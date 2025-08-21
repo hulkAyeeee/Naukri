@@ -3,10 +3,9 @@ pipeline {
 
     triggers {
         // Schedule build at 7 AM, 9 AM, 12 PM, 3 PM IST
-        cron('0 1,3,6,9 * * *')  
-        // Note: Jenkins uses UTC by default. IST = UTC+5:30
-        // So: 7 AM IST = 1:30 AM UTC → nearest hour = 1, etc.
-        // Adjust if needed.
+        // Jenkins cron is in UTC, IST = UTC+5:30
+        // So 7 AM IST = 1:30 AM UTC → nearest hour = 1, etc.
+        cron('30 1,3,6,9 * * *')
     }
 
     stages {
@@ -19,8 +18,11 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
-                    // Compile all .java files in src directory
-                    bat 'javac -d out src/*.java'
+                    // Compile all java files into out/ directory
+                    bat '''
+                        if not exist out mkdir out
+                        javac -d out Selenium2025\\src\\com\\Naukri\\*.java
+                    '''
                 }
             }
         }
@@ -28,7 +30,7 @@ pipeline {
         stage('Run Profile1') {
             steps {
                 script {
-                    bat 'java -cp out Profile1'
+                    bat 'java -cp out com.Naukri.Profile1'
                 }
             }
         }
@@ -36,14 +38,14 @@ pipeline {
         stage('Run Profile2') {
             steps {
                 script {
-                    bat 'java -cp out Profile2'
+                    bat 'java -cp out com.Naukri.Profile2'
                 }
             }
         }
 
         stage('Report') {
             steps {
-                echo "Profiles executed successfully!"
+                echo "✅ Both Profile1 and Profile2 executed successfully!"
             }
         }
     }
