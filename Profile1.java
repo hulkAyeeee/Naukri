@@ -83,16 +83,18 @@ public class Profile1 {
 		if(a.contains("."))
 		{
 			textArea.clear();
-			textArea.sendKeys("Immediate Joiner | Seasoned QA Tester with 4+ years’ "
-					+ "experience (2 in automation) in Selenium WebDriver (Java), manual & API testing, "
-					+ "regression, BDD (Cucumber, TestNG), CI/CD (Jenkins), Agile, and defect management (Azure DevOps, Jira)");
+			textArea.sendKeys("Immediate Joiner | Seasoned QA Tester with 4+ years' "
+        + "experience (2 in automation) in Selenium WebDriver (Java), manual & API testing, "
+        + "regression, BDD (Cucumber, TestNG), CI/CD (Jenkins), Agile, and defect management (Azure DevOps, Jira)");
+
 		}
 		else
 		{
 			textArea.clear();
-			textArea.sendKeys("Immediate Joiner | Seasoned QA Tester with 4+ years’ "
-					+ "experience (2 in automation) in Selenium WebDriver (Java), manual & API testing, "
-					+ "regression, BDD (Cucumber, TestNG), CI/CD (Jenkins), Agile, and defect management (Azure DevOps, Jira).");
+textArea.sendKeys("Immediate Joiner | Seasoned QA Tester with 4+ years' "
+        + "experience (2 in automation) in Selenium WebDriver (Java), manual & API testing, "
+        + "regression, BDD (Cucumber, TestNG), CI/CD (Jenkins), Agile, and defect management (Azure DevOps, Jira).");
+
 		}
 		
 		driver.findElement(By.xpath("//button[text()='Save']")).click();
