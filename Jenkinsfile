@@ -1,10 +1,19 @@
 pipeline {
     agent any
 
+    tools {
+        // "jdk11" must match the name you configure in Jenkins → Global Tool Configuration → JDK installations
+        jdk 'jdk11'
+    }
+
     triggers {
-        // Runs at 7:00, 9:00, 12:00, 15:00 IST (convert IST to UTC -> -5:30)
-        // Jenkins uses server timezone, so adjust if needed
-        cron('0 1,3,6,9 * * *')
+        // Runs daily at 7, 9, 12, and 15 IST
+        cron('0 7,9,12,15 * * *')
+    }
+
+    environment {
+        JAVA_HOME = tool 'jdk11'     // ensure JAVA_HOME points to Jenkins JDK
+        PATH = "${JAVA_HOME}/bin:${env.PATH}" // prepend Java bin to PATH
     }
 
     stages {
@@ -16,11 +25,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo "Compiling Java files..."
-                // Adjust path if needed (Workspace + Selenium2025/src)
-                sh '''
-                    mkdir -p classes
-                    javac -d classes Selenium2025/src/com/Naukri/*.java
+                echo "Compiling Java files with Jenkins JDK..."
+                bat '''
+                    if not exist classes mkdir classes
+                    "%JAVA_HOME%\\bin\\javac" -d classes Selenium2025\\src\\com\\Naukri\\*.java
                 '''
             }
         }
@@ -28,14 +36,14 @@ pipeline {
         stage('Run Profile1') {
             steps {
                 echo "Running Profile1..."
-                sh 'java -cp classes com.Naukri.Profile1'
+                bat '"%JAVA_HOME%\\bin\\java" -cp classes com.Naukri.Profile1'
             }
         }
 
         stage('Run Profile2') {
             steps {
                 echo "Running Profile2..."
-                sh 'java -cp classes com.Naukri.Profile2'
+                bat '"%JAVA_HOME%\\bin\\java" -cp classes com.Naukri.Profile2'
             }
         }
     }
