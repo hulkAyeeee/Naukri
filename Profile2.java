@@ -34,10 +34,15 @@ options.addArguments("--disable-gpu");
 		    cookies.get(0).click();
 		}
 
-		List<WebElement> qrError = driver.findElements(By.xpath("//div[starts-with(@id,'scan-qr-overlay')]"));
-		if (!qrError.isEmpty() && qrError.get(0).isDisplayed()) {
-		    driver.navigate().refresh();
-		}
+		   WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            WebElement gotItButton = wait.until(
+                    ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Got it']"))
+            );
+            gotItButton.click();
+        } catch (Exception e) {
+            System.out.println("Element 'Got it' not found. Continuing test...");
+        }
 		
 		driver.findElement(By.xpath("//a[text()='Login']")).click();
 
