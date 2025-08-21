@@ -48,7 +48,6 @@ public class Profile1 {
 		
 		driver.findElement(By.xpath("//a[text()='Login']")).click();
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(
 		    By.xpath("//input[@placeholder='Enter your active Email ID / Username']")
 		));
