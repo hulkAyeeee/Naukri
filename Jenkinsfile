@@ -15,26 +15,24 @@ pipeline {
         }
 
         stage('Build') {
-            steps {
-                bat '''
-                if not exist classes mkdir classes
-                for %%f in (*.java) do (
-                    javac -d classes %%f
-                )
-                '''
-            }
-        }
+    steps {
+        bat '''
+        if not exist classes mkdir classes
+        javac -cp "lib/*" -d classes src\\com\\Naukri\\*.java
+        '''
+    }
+}
 
-        stage('Run Profile1') {
-            steps {
-                bat 'java -cp classes Profile1'
-            }
-        }
+      stage('Run Profile1') {
+    steps {
+        bat 'java -cp "lib/*;classes" com.Naukri.Profile1'
+    }
+}
 
-        stage('Run Profile2') {
-            steps {
-                bat 'java -cp classes Profile2'
-            }
-        }
+stage('Run Profile2') {
+    steps {
+        bat 'java -cp "lib/*;classes" com.Naukri.Profile2'
+    }
+}
     }
 }
